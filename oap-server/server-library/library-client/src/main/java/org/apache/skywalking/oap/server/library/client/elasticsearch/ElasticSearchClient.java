@@ -40,6 +40,7 @@ import org.elasticsearch.action.search.*;
 import org.elasticsearch.action.support.WriteRequest;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.*;
+import org.elasticsearch.common.ValidationException;
 import org.elasticsearch.common.unit.*;
 import org.elasticsearch.common.xcontent.*;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -248,7 +249,7 @@ public class ElasticSearchClient implements Client {
         request.setRefreshPolicy(WriteRequest.RefreshPolicy.IMMEDIATE);
         try {
             client.index(request);
-        } catch (IOException e) {
+        } catch (ValidationException e) {
             logger.error("Failed to forceInsert: indexName={}, id={}", indexName, id);
             throw e;
         }
@@ -260,7 +261,7 @@ public class ElasticSearchClient implements Client {
         request.setRefreshPolicy(WriteRequest.RefreshPolicy.IMMEDIATE);
         try {
             client.update(request);
-        } catch (IOException e) {
+        } catch (ValidationException e) {
             logger.error("Failed to forceUpdate: indexName={}, id={}", indexName, id);
             throw e;
         }
@@ -271,7 +272,7 @@ public class ElasticSearchClient implements Client {
         request.setRefreshPolicy(WriteRequest.RefreshPolicy.IMMEDIATE);
         try {
             client.update(request);
-        } catch (IOException e) {
+        } catch (ValidationException e) {
             logger.error("Failed to forceUpdate: indexName={}, id={}", indexName, id);
             throw e;
         }
